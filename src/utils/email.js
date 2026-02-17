@@ -4,7 +4,7 @@ import { config } from "../config/index.js";
 
 const createTransporter = () => {
   return nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: config.email.host,
     port: 587, // <--- CHANGED: Standard port for cloud servers
     secure: false, // <--- CHANGED: Must be false for 587
     auth: {

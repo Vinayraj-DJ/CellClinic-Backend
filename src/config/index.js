@@ -49,14 +49,14 @@ export const config = {
   // Email Configuration
   // -----------------------------
   email: {
-    host: "smtp.gmail.com",
+    host: process.env.EMAIL_HOST || "smtp.gmail.com",
     port: Number(process.env.EMAIL_PORT || 587),
 
     // UPDATE THESE LINES TO USE process.env
     user: process.env.EMAIL_USER || "devakarthik8899@gmail.com",
     pass: process.env.EMAIL_PASS || "emse yvcn clnh xqqv",
 
-    from: "devakarthik8899@gmail.com",
+    from: process.env.EMAIL_FROM || "devakarthik8899@gmail.com",
   },
 
   // -----------------------------

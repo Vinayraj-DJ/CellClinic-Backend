@@ -21,9 +21,10 @@ export const submitContactForm = async (req, res) => {
       description,
     });
 
-    // 3. Send Email to Admin
-    const adminEmail = "devakarthik8899@gmail.com";
-    const emailHtml = `
+    // 3. Send Email to Admin (Non-blocking)
+    try {
+      const adminEmail = "devakarthik8899@gmail.com";
+      const emailHtml = `
       <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
         <h2 style="color: #2563eb;">📬 New Contact Message</h2>
         <p><strong>Name:</strong> ${name}</p>
@@ -37,11 +38,15 @@ export const submitContactForm = async (req, res) => {
       </div>
     `;
 
-    await sendEmail({
-      to: adminEmail,
-      subject: `New Contact Message from ${name}`,
-      html: emailHtml,
-    });
+      await sendEmail({
+        to: adminEmail,
+        subject: `New Contact Message from ${name}`,
+        html: emailHtml,
+      });
+    } catch (emailError) {
+      console.error("Email sending failed (non-critical):", emailError.message);
+      // Continue execution even if email fails
+    }
 
     return res.status(201).json({
       success: true,
